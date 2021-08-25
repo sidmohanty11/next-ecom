@@ -1,6 +1,7 @@
 import type { InferGetStaticPropsType } from 'next'
 import { getAllProducts } from '@framework/product/get-all-products'
 import { getConfig } from '@framework/api/config'
+import { Layout } from '@components/common'
 
 export default function Home({ products }: InferGetStaticPropsType<typeof getStaticProps>){
   return (
@@ -18,3 +19,5 @@ export async function getStaticProps() {
     revalidate: 4 * 60 * 60
   }
 }
+
+Home.Layout = Layout

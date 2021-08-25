@@ -1,0 +1,19 @@
+import { AppProps } from "next/app"
+import { FC } from "react"
+
+const Noop: FC = ({ children }) => {
+  return <>{children}</>
+}
+
+export default function MyApp({
+  Component, pageProps 
+}: AppProps & { Component: { Layout: FC } }) {
+
+  const Layout = Component.Layout ? Component.Layout : Noop
+
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  )
+}
