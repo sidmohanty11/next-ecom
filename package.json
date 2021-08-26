@@ -16,6 +16,7 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.2",
     "deepmerge": "^4.2.2",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
