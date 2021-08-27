@@ -9,5 +9,11 @@ export interface Product {
   description: string
   slug: string
   path: string
-  images: ProductImage[] 
+  images: ProductImage[]
+  price: ProductPrice
+}
+
+export interface ProductPrice {
+  value: number
+  currencyCode: "USD" | "EUR" | string
 }

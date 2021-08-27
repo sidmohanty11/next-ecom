@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap');
+
 .root {
   @apply bg-primary h-full mx-auto;
+  font-family: 'Jura', sans-serif;
   max-width: 2460px;
 }
