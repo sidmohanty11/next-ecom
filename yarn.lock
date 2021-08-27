@@ -2839,6 +2839,11 @@ react-refresh@0.8.3:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
+react-ticker@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/react-ticker/-/react-ticker-1.2.2.tgz#12cda5ff8266c6fe90ffcd8c58e12ba1596ddf24"
+  integrity sha512-PXUujoPJvajxwOfosuuujlrBUrjgGp4FB4haWFOI25ujhMppW4SuLkiOdQ9AylrWN3yTHWdk2kbQWe3n9SjFGA==
+
 react@17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
