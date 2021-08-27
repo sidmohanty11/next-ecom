@@ -1,11 +1,16 @@
 .root {
+  @apply bg-white;
   height: 320px;
+}
+
+.secondary {
+  @apply bg-black;
 }
 
 .container {
   @apply flex;
 
   & > * {
-    @apply flex-1 px-16 py-4 relative;
+    @apply flex-1 px-16 py-2 relative;
   }
 }

@@ -22,6 +22,16 @@ export default function Home({ products }: InferGetStaticPropsType<typeof getSta
           <ProductCard variant="slim" key={product.id} product={product} />
         ))}
       </Marquee>
+      <Grid layout="B">
+        {products.slice(0,3).map(product => (
+          <ProductCard variant="simple" key={product.id} product={product} />
+        ))}
+      </Grid>
+      <Marquee variant="secondary">
+        {products.slice(0,3).map(product => (
+          <ProductCard variant="slim" key={product.id} product={product} />
+        ))}
+      </Marquee>
     </>
   )
 }

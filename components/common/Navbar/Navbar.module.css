@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Trade+Winds&display=swap');
+
+.root {
+  @apply flex flex-row md:py-6;
+}
+
+.link {
+  @apply text-accents-6 leading-6 font-medium transition;
+
+  &:hover {
+    @apply text-accents-9;
+  }
+}
+
+.logo {
+  @apply text-2xl font-bold;
+  font-family: 'Trade Winds', cursive;
+}
