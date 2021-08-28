@@ -1,4 +1,5 @@
 import "@assets/main.css"
+import UIProvider from "@components/ui/context"
 import { AppProps } from "next/app"
 import { FC } from "react"
 
@@ -13,8 +14,10 @@ export default function MyApp({
   const Layout = Component.Layout ? Component.Layout : Noop
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <UIProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UIProvider>
   )
 }
