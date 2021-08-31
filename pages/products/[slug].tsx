@@ -2,12 +2,13 @@ import { Layout } from "@components/common"
 import { getConfig } from "@framework/api/config"
 import { getAllProductsPaths, getProduct } from "@framework/product"
 import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "next"
+import { ProductView } from "@components/product"
 
 const ProductDetail = ({ product }:InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <div>
-      {JSON.stringify(product)}
-    </div>
+    <>
+      { product && <ProductView product={product} />}
+    </>
   )
 }
 
