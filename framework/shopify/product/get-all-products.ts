@@ -7,8 +7,10 @@ type ReturnType = { products: ProductConnection }
 
 // getAllProducts returns the data by calling fetchApi function
 // and passing down the graphql query
-export const getAllProducts = async (config: ApiConfig): Promise<Product[]> => {
+const getAllProducts = async (config: ApiConfig): Promise<Product[]> => {
   const { data } = await config.fetch<ReturnType>({ query: getAllProductsQuery, url: config.apiUrl })
   const products = data.products.edges.map(({ node }) => normalizeProduct(node)) ?? []
   return products
 }
+
+export default getAllProducts
