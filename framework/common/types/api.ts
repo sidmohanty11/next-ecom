@@ -1,7 +1,7 @@
 export type ApiFetcherOptions = {
   url: string
   query: string
-  variables?: any
+  variables?: { [key: string]: string | undefined }
 }
 
 export type ApiFetcherResults<T> = {

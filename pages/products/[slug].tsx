@@ -6,7 +6,7 @@ import { GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from "
 const ProductDetail = ({ product }:InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
-      {product.slug}
+      {product?.slug}
     </div>
   )
 }
