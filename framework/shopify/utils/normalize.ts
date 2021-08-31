@@ -1,4 +1,4 @@
-import { Product as ShopifyProduct, ImageEdge, MoneyV2 } from "../schema"
+import { Product as ShopifyProduct, ImageEdge, MoneyV2, ProductOption, ProductVariantConnection, SelectedOption } from "../schema"
 import { Product } from "@common/types/product"
 
 function normalizeProductImages({ edges }: { edges: ImageEdge[]}) {
@@ -15,6 +15,55 @@ const normalizeProductPrice = ({currencyCode, amount}: MoneyV2) => ({
   currencyCode
 })
 
+const normalizeProductOption = ({ id, values, name: displayName }: ProductOption) => {
+  const normalized = {
+    id, displayName,
+    values: values.map(val => {
+      let output: any = {
+        label: val
+      }
+
+      if (displayName.match(/colou?r/gi)) {
+        output = {
+          ...output,
+          hexColor: val
+        }
+      }
+
+      return output
+    })
+  }
+
+  return normalized
+}
+
+const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
+  return edges.map(({ node }) => {
+    const {
+      id,
+      sku,
+      title,
+      priceV2,
+      selectedOptions,
+      compareAtPriceV2
+    } = node
+
+    return {
+      id,
+      sku: sku || id,
+      title,
+      price: +priceV2.amount,
+      listPrice: +compareAtPriceV2?.amount,
+      requiresShipping: true,
+      options: selectedOptions.map(({ name, value }: SelectedOption) => {
+        const option = normalizeProductOption({ id, values: [value], name })
+
+        return option
+      })
+    }
+  })
+}
+
 export function normalizeProduct(node: ShopifyProduct): Product {
   const {
     id,
@@ -24,6 +73,8 @@ export function normalizeProduct(node: ShopifyProduct): Product {
     description,
     images: imageCollection,
     priceRange,
+    options,
+    variants,
     ...rest
   } = node
   
@@ -36,6 +87,10 @@ export function normalizeProduct(node: ShopifyProduct): Product {
     slug: handle.replace(/^\/+|\/+$/g, ""),
     images: normalizeProductImages(imageCollection),
     price: normalizeProductPrice(priceRange.minVariantPrice),
+    options: options ? options.filter(o => o.name !== "Title").map(o => (
+      normalizeProductOption(o)
+    )) : [],
+    variants: variants ? normalizeProductVariants(variants) : [],
     ...rest
   }
 
