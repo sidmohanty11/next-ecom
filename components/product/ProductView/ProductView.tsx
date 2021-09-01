@@ -1,16 +1,23 @@
 import cn from 'classnames'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import s from './ProductView.module.css'
 import { Button, Container } from '@components/ui'
 import Image from "next/image"
 import { Product } from '@common/types/product'
-import ProductSlider from '../ProductSlider'
+import { ProductSlider, Swatch } from '@components/product'
 
 interface Props {
   product: Product
 }
 
+type AvailableChoices = "color" | "size" | string
+
+type Choices = {
+  [P in AvailableChoices]: string
+}
+
 const ProductView: FC<Props> = ({ product }) => {
+  const [ choices, setChoices ] = useState<Choices>({})
 
   return (
     <Container>
@@ -41,12 +48,32 @@ const ProductView: FC<Props> = ({ product }) => {
         </div>
         <div className={s.sidebar}>
           <section>
-            <div className="pb-4">
-              <h2 className="uppercase font-medium">Color</h2>
+            {product.options.map(option => 
+            <div key={option.id} className="pb-4">
+              <h2 className="uppercase font-medium">{option.displayName}</h2>
               <div className="flex flex-row py-4">
-                Variant Options Here!
+                {option.values.map(ov => {
+                  const activeChoice = choices[option.displayName.toLowerCase()]
+                  return (
+                  <Swatch
+                    key={`${option.id}-${ov.label}`}
+                    label={ov.label}
+                    color={ov.hexColor}
+                    variant={option.displayName}
+                    onClick={() => {
+                      setChoices({
+                        ...choices,
+                        [option.displayName.toLowerCase()]: ov.label.toLowerCase()
+                      })
+                    }}
+                    active={ov.label.toLowerCase() === activeChoice}
+                  />
+                  )
+                }
+                  )}
               </div>
             </div>
+              )}
             <div className="pb-14 break-words w-full max-w-xl text-lg">
             { product.description }
             </div>
