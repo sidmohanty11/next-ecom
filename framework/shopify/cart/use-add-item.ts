@@ -1,16 +1,18 @@
 import { useAddItem } from "@common/cart"
+import { MutationHook } from "@common/types/hooks"
 
 export default useAddItem
 
-export const handler = {
-  fetcher: () => {
-    console.log("fetching")
+export const handler: MutationHook = {
+  fetcher: (input: any) => {
+    return JSON.stringify(input) + '_Modified'
   },
-  useHook: () => {
+  useHook: ({ fetch }) => {
     return (input: any) => {
+      const res = fetch(input)
       return {
-        output: JSON.stringify(input) + '_modified'
+        output: res
       }
     }
-  } 
+  }
 }

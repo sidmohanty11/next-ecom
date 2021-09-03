@@ -16,10 +16,12 @@ interface Props {
 
 const ProductView: FC<Props> = ({ product }) => {
   const [ choices, setChoices ] = useState<Choices>({})
-  const api = useApiProvider()
+
   const { openSidebar } = useUI()
+
   const variant = getVariant(product, choices)
   const addItem = useAddItem()
+
   const addToCart = () => {
     try {
       const item = {
@@ -27,8 +29,6 @@ const ProductView: FC<Props> = ({ product }) => {
         variantId: variant?.id,
         variantOpts: variant?.options
       }
-
-      const out = addItem(item)
       openSidebar()
     } catch (err) {
       throw new Error('error')
