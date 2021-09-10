@@ -1,17 +1,18 @@
-import { ApiFetcherOptions, ApiFetcherResults } from "@common/types/api"
+import { ApiFetcherOptions, ApiFetcherResults } from '@common/types/api'
+import { API_URL } from '@framework/const'
 
 // fetchApi function fetches data from the fake shopify graphql api
 // and in case of any error, it throws it
 const fetchApi = async <T>({
-  url, 
   query,
-  variables }: ApiFetcherOptions): Promise<ApiFetcherResults<T>> => {
-  const res = await fetch(url, {
+  variables,
+}: ApiFetcherOptions): Promise<ApiFetcherResults<T>> => {
+  const res = await fetch(API_URL!, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ query, variables })
+    body: JSON.stringify({ query, variables }),
   })
 
   const { data, errors } = await res.json()

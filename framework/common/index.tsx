@@ -26,5 +26,5 @@ export const ApiProvider = ({
 }
 
 export const useApiProvider = () => {
-  return useContext(ApiContext)
+  return useContext(ApiContext) as ApiProviderCtxValue
 }

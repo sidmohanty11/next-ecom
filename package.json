@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/react": "^17.0.19",
     "classnames": "^2.3.1",
+    "js-cookie": "^3.0.1",
     "keen-slider": "^5.5.1",
     "next": "11.1.1",
     "react": "17.0.2",
@@ -19,6 +20,7 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.7",
     "autoprefixer": "^10.3.2",
     "deepmerge": "^4.2.2",
     "eslint": "7.32.0",
