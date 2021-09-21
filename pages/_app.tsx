@@ -1,5 +1,5 @@
+import '@assets/main.css'
 import 'keen-slider/keen-slider.min.css'
-import "@assets/main.css"
 import UIProvider from "@components/ui/context"
 import { AppProps } from "next/app"
 import { FC } from "react"
@@ -9,7 +9,7 @@ const Noop: FC = ({ children }) => {
 }
 
 export default function MyApp({
-  Component, pageProps 
+  Component, pageProps
 }: AppProps & { Component: { Layout: FC } }) {
 
   const Layout = Component.Layout ? Component.Layout : Noop

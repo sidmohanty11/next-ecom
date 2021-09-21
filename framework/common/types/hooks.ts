@@ -4,6 +4,13 @@ export type MutationHookCtx = {
   fetch: (input: any) => any
 }
 
+export interface ApiHooks {
+  cart: {
+    useAddItem: MutationHook
+    useCart: any
+  }
+}
+
 export type FetcherHookCtx = {
   input?: any
   fetch: ApiFetcher
