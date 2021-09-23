@@ -8,7 +8,7 @@ const Noop: FC = ({ children }) => {
   return <>{children}</>
 }
 
-export default function MyApp({
+export default function App({
   Component, pageProps
 }: AppProps & { Component: { Layout: FC } }) {
 
