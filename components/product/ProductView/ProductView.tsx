@@ -30,6 +30,7 @@ const ProductView: FC<Props> = ({ product }) => {
         variantOpts: variant?.options
       }
       const output = await addItem(item)
+      console.log(output)
       openSidebar()
     } catch (err) {
       throw new Error('error')
