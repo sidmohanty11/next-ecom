@@ -3,12 +3,13 @@ import useCart from '@common/cart/use-cart'
 export default useCart
 
 export const handler = {
-  fetcherOptions: {
-    query: '',
+  fetchOptions: {
+    query: 'query { hello }',
   },
-  fetcher() {
+  async fetcher({ fetch, options, input: { checkoutId } }:any) {
+    const data = await fetch({...options})
     return {
-      data: 'cart ready!',
+      data
     }
   },
   useHook: ({ useData }: any) => {
