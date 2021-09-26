@@ -1,5 +1,5 @@
 import useCart from '@common/cart/use-cart'
-import { createCheckout, getCheckoutQuery } from '@framework/utils';
+import { createCheckout, getCheckoutQuery, checkoutToCart } from '@framework/utils';
 import { useMemo } from 'react';
 
 export default useCart
@@ -19,7 +19,9 @@ export const handler = {
       checkout = await createCheckout(fetch)
     }
 
-    return checkout
+    const cart = checkoutToCart(checkout)
+
+    return cart
   },
   useHook: ({ useData }: any) => {
     const data = useData({

@@ -3,22 +3,9 @@ export interface ProductImage {
   alt?: string
 }
 
-export interface Product {
-  id: string
-  name: string
-  description: string
-  slug: string
-  path: string
-  images: ProductImage[]
-  price: ProductPrice
-  options: ProductOption[]
-  variants: ProductVariant[]
-}
-
-export interface ProductVariant {
-  id: string
-  options: ProductOption[]
-  name: string
+export interface ProductPrice {
+  value: number
+  currencyCode: "USD" | "EUR" | string
 }
 
 export interface ProductOptionValues {
@@ -32,7 +19,25 @@ export interface ProductOption {
   values: ProductOptionValues[]
 }
 
-export interface ProductPrice {
-  value: number
-  currencyCode: "USD" | "EUR" | string
+export interface ProductVariant {
+  id: string
+  name: string
+  sku: string
+  image?: ProductImage
+  requiresShipping: boolean
+  price: number
+  listPrice: number
+  options: ProductOption[]
+}
+
+export interface Product {
+  id: string
+  name: string
+  description: string
+  slug: string
+  path: string
+  images: ProductImage[]
+  price: ProductPrice,
+  options: ProductOption[],
+  variants: ProductVariant[]
 }
