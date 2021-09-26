@@ -3,9 +3,11 @@ import { FC } from "react"
 import Link from "next/link"
 import { Bag, Heart } from "@components/icons"
 import { useUI } from "@components/ui/context"
+import useCart from "@framework/cart/use-cart"
 
 const UserNav: FC = () => {
   const { openSidebar } = useUI()
+  const { data } = useCart()
   return (
     <nav>
       <ul className={s.list}>
