@@ -26,14 +26,15 @@ const ProductView: FC<Props> = ({ product }) => {
     try {
       const item = {
         productId: String(product.id),
-        variantId: variant?.id,
-        variantOpts: variant?.options
+        variantId: String(variant?.id),
+        variantOpts: variant?.options,
+        quantity: 1
       }
       const output = await addItem(item)
       console.log(output)
       openSidebar()
     } catch (err) {
-      throw new Error('error')
+      throw new Error('error in product view')
     }
   }
 
