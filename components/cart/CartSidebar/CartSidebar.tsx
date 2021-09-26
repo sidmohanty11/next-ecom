@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Bag, Cross } from '@components/icons'
-import cn from "classnames"
+import cn from 'classnames'
 import { useUI } from '@components/ui/context'
 import { useCart } from '@framework/cart'
 
@@ -10,10 +10,9 @@ const CartSidebar: FC = () => {
   const { data } = useCart()
   console.log(data)
 
-  const rootClass = cn(
-    "h-full flex flex-col",
-    {"bg-secondary text-secondary": isEmpty}
-  )
+  const rootClass = cn('h-full flex flex-col', {
+    'bg-secondary text-secondary': isEmpty,
+  })
 
   return (
     <div className={rootClass}>
@@ -42,48 +41,47 @@ const CartSidebar: FC = () => {
             Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
           </p>
         </div>
-      ) :
-      <>
-        <div className="px-4 sm:px-6 flex-1">
-          <h2
-            className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide inline-block">
-            My Cart
-          </h2>
-          <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
-            Cart Items Here!
-          </ul>
-        </div>
-        <div className="flex-shrink-0 px-4  py-5 sm:px-6">
-          <div className="border-t border-accents-3">
-            <ul className="py-3">
-            <li className="flex justify-between py-1">
-                <span>Subtotal</span>
-                <span>20$</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>Taxes</span>
-                <span>Calculated at checkout</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>Estimated Shipping</span>
-                <span className="font-bold tracking-wide">FREE</span>
-              </li>
+      ) : (
+        <>
+          <div className="px-4 sm:px-6 flex-1">
+            <h2 className="pt-1 pb-4 text-2xl leading-7 font-bold text-base tracking-wide inline-block">
+              My Cart
+            </h2>
+            <ul className="py-6 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accents-3 border-t border-accents-3">
+              Cart Items Here!
             </ul>
-            <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
-              <span>Total</span>
-              <span>120$</span>
-            </div>
           </div>
-          <button
-            onClick={() => {
-              alert("Going to checkout!")
-            }}
-          >
-            Proceed to Checkout
-          </button>
-        </div>
-      </>
-      }
+          <div className="flex-shrink-0 px-4  py-5 sm:px-6">
+            <div className="border-t border-accents-3">
+              <ul className="py-3">
+                <li className="flex justify-between py-1">
+                  <span>Subtotal</span>
+                  <span>20$</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>Taxes</span>
+                  <span>Calculated at checkout</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>Estimated Shipping</span>
+                  <span className="font-bold tracking-wide">FREE</span>
+                </li>
+              </ul>
+              <div className="flex justify-between border-t border-accents-3 py-3 font-bold mb-10">
+                <span>Total</span>
+                <span>120$</span>
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                alert('Going to checkout!')
+              }}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        </>
+      )}
     </div>
   )
 }

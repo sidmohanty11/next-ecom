@@ -1,3 +1,4 @@
+import { SWRResponse } from 'swr'
 import { ApiFetcher, ApiFetcherOptions } from './api'
 
 export type MutationHookCtx<Input, Output> = {
@@ -38,3 +39,29 @@ export type MutationHook<H extends HookDescriptor = any> = {
     context: MutationHookCtx<H["fetcherInput"], H["data"]>
     ): () => (input: H["fetcherInput"]) => Promise<H["data"]>
 }
+
+export type SWRHookContext<Input, Output> = {
+  useData: (input: Input) => Promise<Output>
+}
+
+export type UseDataCtx = {
+  swrOptions: any
+}
+
+export type UseData<Data> = (ctx: UseDataCtx) => Data
+
+export type SWRHook<H extends HookDescriptor = any> = {
+  fetcherOptions: HookFetcherOptions
+  fetcher: HookFetcherFn<
+    H["fetcherInput"],
+    H["fetcherOutput"],
+    H["data"]
+  >
+  useHook(
+    context: {
+      useData: UseData<SWRResponse<H["data"], any>>
+    }
+  ): () => SWRResponse<H["data"], any>
+}
+
+export type Hook = MutationHook | SWRHook

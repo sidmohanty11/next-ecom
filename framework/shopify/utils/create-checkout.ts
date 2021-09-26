@@ -6,12 +6,15 @@ import { checkoutCreateMutation } from "./mutations"
 
 const createCheckout = async (
   fetch: ApiFetcher<{checkoutCreate: CheckoutCreatePayload}>
-  ): Promise<Maybe<Checkout | undefined>> => {
+  ): Promise<Checkout> => {
 
   const { data } = await fetch({
     query: checkoutCreateMutation
   })
   const { checkout } = data.checkoutCreate
+  if (!checkout) {
+    throw new Error('checkout error')
+  }
   const checkoutId = checkout?.id
 
   if (checkoutId) {
