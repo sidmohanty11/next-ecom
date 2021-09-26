@@ -1,4 +1,7 @@
-import { ProductOption, ProductVariant } from "@framework/schema";
+import {
+  ProductOption,
+  ProductVariant
+} from "./product";
 
 interface Discount {
   value: number

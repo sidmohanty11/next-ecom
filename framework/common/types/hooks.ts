@@ -48,6 +48,8 @@ export type UseDataCtx = {
   swrOptions: any
 }
 
+export type SWRHookResponse<Data> = SWRResponse<Data, any> & { isEmpty: boolean }
+
 export type UseData<Data> = (ctx: UseDataCtx) => Data
 
 export type SWRHook<H extends HookDescriptor = any> = {
@@ -59,9 +61,9 @@ export type SWRHook<H extends HookDescriptor = any> = {
   >
   useHook(
     context: {
-      useData: UseData<SWRResponse<H["data"], any>>
+      useData: UseData<SWRHookResponse<H["data"]>>
     }
-  ): () => SWRResponse<H["data"], any>
+  ): () => SWRHookResponse<H["data"]>
 }
 
 export type Hook = MutationHook | SWRHook
