@@ -29,6 +29,10 @@ lineItems(first: 250) {
         id
         sku
         title
+        selectedOptions {
+          name
+          value
+        }
         image {
           originalSrc
           altText

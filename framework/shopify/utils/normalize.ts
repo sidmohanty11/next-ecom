@@ -52,7 +52,7 @@ const normalizeProductVariants = ({ edges }: ProductVariantConnection) => {
     return {
       id,
       sku: sku || id,
-      title,
+      name: title,
       price: +priceV2.amount,
       listPrice: +compareAtPriceV2?.amount,
       requiresShipping: true,
@@ -105,14 +105,21 @@ const normalizeLineItem = ({ node: { id, title, variant, ...rest } }: CheckoutLi
     variantId: String(variant?.id),
     productId: String(variant?.id),
     name: title,
-    path: String(variant?.product.handle),
+    path: String(variant?.product?.handle) ?? "",
     discounts: [],
-    // TODO: options
+    options: variant?.selectedOptions.map(({ name, value }: SelectedOption) => {
+      const option = normalizeProductOption({ id, values: [value], name })
+      return option
+    }),
     variant: {
       id: String(variant?.id),
       sku: variant?.sku ?? "",
       name: variant?.title,
-      // TODO: image,
+      image: {
+        url: process.env.NEXT_PUBLIC_FRAMEWORK === "shopify_local" ?
+         `/images/${variant?.image?.originalSrc}` :
+          variant?.image?.originalSrc ?? "/placeholder.svg"
+      },
       requiresShipping: variant?.requiresShipping ?? false,
       price: variant?.priceV2.amount,
       listPrice: variant?.compareAtPriceV2?.amount,
@@ -132,6 +139,6 @@ export const normalizeCart = (checkout: Checkout): Cart => {
     lineItemsSubtotalPrice: +checkout.subtotalPriceV2.amount,
     totalPrice: checkout.totalPriceV2.amount,
     discounts: [],
-    lineItems: checkout.lineItems.edges.map(liEdge => liEdge.node),
+    lineItems: checkout.lineItems.edges.map(normalizeLineItem),
   }
 }

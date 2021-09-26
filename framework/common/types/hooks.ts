@@ -1,7 +1,7 @@
 import { ApiFetcher, ApiFetcherOptions } from './api'
 
-export type MutationHookCtx = {
-  fetch: (input: any) => any
+export type MutationHookCtx<Input, Output> = {
+  fetch: (input: Input) => Promise<Output>
 }
 
 export interface ApiHooks {
@@ -11,14 +11,27 @@ export interface ApiHooks {
   }
 }
 
-export type FetcherHookCtx = {
-  input?: any
-  fetch: ApiFetcher
+export type FetcherHookCtx<Input, Output> = {
+  input: Input
+  fetch: ApiFetcher<Output>
   options: ApiFetcherOptions
 }
 
-export type MutationHook = {
-  fetcherOptions: ApiFetcherOptions
-  fetcher: (context: FetcherHookCtx) => any
-  useHook: (context: MutationHookCtx) => (input: any) => any
+export type HookFetcherOptions = {
+  query: string
+}
+
+export type HookFetcherFn<Input, Output> = (context: FetcherHookCtx<Input, Output>) => Promise<Output>
+
+export type HookDescriptor = {
+  fetcherInput: any
+  data: any
+}
+
+export type MutationHook<H extends HookDescriptor = any> = {
+  fetcherOptions: HookFetcherOptions
+  fetcher: HookFetcherFn<H["fetcherInput"], H["data"]>
+  useHook: (
+    context: MutationHookCtx<H["fetcherInput"], H["data"]>
+    ) => (input: H["fetcherInput"]) => Promise<H["data"]>
 }
