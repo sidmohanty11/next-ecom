@@ -1,22 +1,33 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from "react"
+import { ButtonHTMLAttributes, ComponentType, FC, HTMLAttributes, ReactNode } from "react"
 import s from "./Button.module.css"
 import cn from "classnames"
+import { LoadingDots } from "@components/ui"
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode | ReactNode[]
+  isLoading?: boolean
+  Component?: string | ComponentType<HTMLAttributes<HTMLElement>>
+  href?: string
 }
 
-const Button: FC<Props> = ({children, className, ...rest}) => {
-
+const Button: FC<Props> = ({children, className, isLoading = false, Component = "button", ...rest}) => {
+  const rootClassName = cn(s.root, className, {
+    [s.loading]: isLoading
+  })
 
   return (
-    <button
-      className={cn(s.root, className)}
+    <Component
+      className={rootClassName}
       type="button"
       {...rest}
       >
       {children}
-    </button>
+      { isLoading &&
+        <i className="pl-2 m-0 flex">
+          <LoadingDots />
+        </i>
+      }
+    </Component>
   )
 }
 
