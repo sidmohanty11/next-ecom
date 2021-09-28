@@ -10,7 +10,7 @@ interface Props {
   label?: string
   variant?: "size" | "color" | string
   onClick: () => void
-  active: boolean
+  active?: boolean
 }
 
 const Swatch: FC<Props> = ({
