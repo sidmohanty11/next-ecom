@@ -5,6 +5,7 @@ import { Check } from '@components/icons'
 import { isDark } from "@lib/color"
 
 interface Props {
+  size?: "sm" | "md" | "lg"
   color?: string
   label?: string
   variant?: "size" | "color" | string
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const Swatch: FC<Props> = ({
-  color, label, variant, active, 
+  color, label, variant, active, size="md",
   ...rest
 }) => {
 
@@ -26,7 +27,8 @@ const Swatch: FC<Props> = ({
       [s.active]: active,
       [s.color]: color,
       [s.size]: variant === "size",
-      [s.dark]: color && isDark(color)
+      [s.dark]: color && isDark(color),
+      [s.sm]: size === "sm"
     }
   )
 
