@@ -5,7 +5,9 @@ import s from './CartItem.module.css'
 import { Trash, Plus, Minus } from '@components/icons'
 import { LineItem } from '@common/types/cart'
 import { Swatch } from '@components/product'
-import useRemoveItem from '@framework/cart/use-remove-item'
+import { useRemoveItem } from '@framework/cart'
+import { useUpdateItem } from '@framework/cart'
+import { ChangeEvent, useState } from 'react'
 
 const CartItem = ({
   item,
@@ -14,9 +16,35 @@ const CartItem = ({
   item: LineItem
   currencyCode: string
 }) => {
+  const [quantity, setQuantity] = useState(item.quantity)
+
   const removeItem = useRemoveItem()
+  const updateItem = useUpdateItem()
+
   const price = (item.variant.price! * item.quantity) || 0
   const { options } = item
+
+  const handleQtyChange = (val: number) => {
+    if (Number.isInteger(val) && val >= 0) {
+      setQuantity(val)
+      updateItem({
+        id: item.id,
+        quantity: val,
+        variantId: item.variantId
+      })
+    }
+  }
+
+  const handleQuantity = async (event: ChangeEvent<HTMLInputElement>) => {
+    const val = Number(event.target.value)
+    handleQtyChange(val)
+  }
+
+  const incrementQuantity = async (n = 1) => {
+    const val = Number(quantity) + n
+    handleQtyChange(val)
+  }
+
   return (
     <li
       className={cn('flex flex-row space-x-8 py-8', {
@@ -62,7 +90,9 @@ const CartItem = ({
         </div>
         <div className="flex items-center mt-3">
           <button type="button">
-            <Minus onClick={() => {}}/>
+            <Minus onClick={() => {
+              incrementQuantity(-1)
+            }}/>
           </button>
           <label>
             <input
@@ -70,21 +100,22 @@ const CartItem = ({
               max={99}
               min={0}
               className={s.quantity}
-              value={item.quantity}
-              onChange={() => {}}
-              onBlur={() => {}}
+              value={quantity}
+              onChange={handleQuantity}
             />
           </label>
           <button type="button">
-            <Plus onClick={() => {}}/>
+            <Plus onClick={() => {
+              incrementQuantity(+1)
+            }}/>
           </button>
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 text-base">
         <span>{price} {currencyCode}</span>
         <button
-          onClick={async () => {
-            const cart = await removeItem({ id: item.id })
+          onClick={() => {
+            removeItem({ id: item.id })
           }}
           className="flex justify-end outline-none"
         >

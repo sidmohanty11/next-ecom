@@ -31,7 +31,6 @@ const ProductView: FC<Props> = ({ product }) => {
         quantity: 1
       }
       const output = await addItem(item)
-      console.log(output)
       openSidebar()
     } catch (err) {
       throw new Error('error in product view')
