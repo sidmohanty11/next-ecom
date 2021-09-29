@@ -10,3 +10,6 @@ Inspired by Next.js's official https://github.com/vercel/commerce store.
 - Integration with Shopify API
 - Normalization of data
 - More Tailwindcss
+
+## About the Images
+Images are from H&M, and are used just for testing and aesthetics. I don't sell their products!
