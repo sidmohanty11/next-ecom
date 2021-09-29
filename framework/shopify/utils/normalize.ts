@@ -5,7 +5,9 @@ import { Cart } from "@common/types/cart"
 function normalizeProductImages({ edges }: { edges: ImageEdge[]}) {
   return edges.map(({ node: { originalSrc: url, ...rest } }) => {
     return { 
-      url: `/images/${url}`,
+      url: process.env.NEXT_PUBLIC_FRAMEWORK === "shopify_local" ?
+         `/images/${url}` :
+          url ?? "/placeholder.svg",
       ...rest
     }
   })
